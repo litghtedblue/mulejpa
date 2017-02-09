@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
+http://www.springframework.org/schema/data/jpa
+http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8011" doc:name="HTTP Listener Configuration"/>
+    <flow name="testFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/>
+        <component class="jp.tuyoyun.Test" doc:name="Java"/>
+    </flow>
+  <spring:beans>
+  	<spring:bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+  	 destroy-method="close">
+    	<spring:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+    	<spring:property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+    	<spring:property name="username" value="system" />
+    	<spring:property name="password" value="oracle" />
+    	<spring:property name="defaultAutoCommit" value="false" />
+	</spring:bean>  
+  	<spring:bean id="vendorAdapter" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter"
+  	>
+    	<spring:property name="database" value="ORACLE"/>
+    	<spring:property name="showSql" value="true" />
+	</spring:bean>
+	<spring:bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	 	<spring:property name="dataSource" ref="dataSource" />
+	 	<spring:property name="packagesToScan" value="jp.tuyoyun" />
+	 	<spring:property name="jpaVendorAdapter" ref="vendorAdapter" />
+	 	<spring:property name="jpaPropertyMap">
+		  <spring:map>
+		    <spring:entry key="eclipselink.weaving" value="false"/>
+		    <spring:entry key="eclipselink.logging.parameters" value="true"/>
+		  </spring:map>
+		</spring:property>
+	</spring:bean>
+    <spring:bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+	 	<spring:property name="entityManagerFactory" ref="entityManagerFactory" />
+	</spring:bean>
+	<jpa:repositories base-package="jp.tuyoyun"/>
+  </spring:beans>
+</mule>
