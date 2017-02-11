@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+  <classPathEntry location="/Users/tuyo/Downloads/ojdbc6.jar"/>
+  <context id="context1" >
+    <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@localhost:1521:xe" userId="TEST" password="init" />
+    <javaModelGenerator targetPackage="jp.cloudear.test.db" targetProject="src/main/java/" />
+    <sqlMapGenerator targetPackage="jp.cloudear.test.db" targetProject="src/main/resources/" />
+    <javaClientGenerator targetPackage="jp.cloudear.test.db" targetProject="src/main/java/" type="XMLMAPPER" />
+    <table schema="TEST" tableName="TEST3" />
+<!--     <table schema="TEST" tableName="TEST6" /> -->
+  </context>
+</generatorConfiguration>

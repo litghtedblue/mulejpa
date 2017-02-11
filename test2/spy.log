@@ -1,0 +1,16 @@
+1486809103135|0|rollback|connection 0||
+1486809103406|39|statement|connection 1|SELECT * FROM TEST3|SELECT * FROM TEST3
+1486809103521|1|commit|connection 1||
+1486809103523|0|rollback|connection 1||
+1486809167447|0|rollback|connection 0||
+1486809167707|29|statement|connection 1|SELECT * FROM TEST3|SELECT * FROM TEST3
+1486809167822|1|commit|connection 1||
+1486809167824|0|rollback|connection 1||
+1486809407025|0|rollback|connection 0||
+1486809407321|33|statement|connection 1|SELECT * FROM TEST3|SELECT * FROM TEST3
+1486809407451|1|commit|connection 1||
+1486809407453|0|rollback|connection 1||
+1486809599512|0|rollback|connection 0||
+1486809599783|32|statement|connection 1|SELECT * FROM TEST3|SELECT * FROM TEST3
+1486809599914|1|commit|connection 1||
+1486809599916|0|rollback|connection 1||

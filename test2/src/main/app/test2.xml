@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+    <spring:beans>
+        <spring:bean id="Bean" name="Bean" class="jp.tuyoyun.App"/>
+        <spring:bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+  	 destroy-method="close">
+    	<spring:property name="driverClassName" value="com.p6spy.engine.spy.P6SpyDriver" />
+    	<spring:property name="url" value="jdbc:p6spy:oracle:thin:@localhost:1521:xe" />
+    	<spring:property name="username" value="TEST" />
+    	<spring:property name="password" value="init" />
+    	<spring:property name="defaultAutoCommit" value="false" />
+	</spring:bean>  
+    </spring:beans>
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8013" doc:name="HTTP Listener Configuration"/>
+    <flow name="test2Flow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/>
+        <component class="jp.tuyoyun.Db" doc:name="Java"/>
+    </flow>
+</mule>
