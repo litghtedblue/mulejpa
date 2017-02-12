@@ -10,4 +10,13 @@
     <table schema="TEST" tableName="TEST3" />
 <!--     <table schema="TEST" tableName="TEST6" /> -->
   </context>
+  <context id="context2" >
+    <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@localhost:1521:xe" userId="SYSTEM" password="oracle" />
+    <javaModelGenerator targetPackage="jp.cloudear.test.db2" targetProject="src/main/java/" />
+    <sqlMapGenerator targetPackage="jp.cloudear.test.db2" targetProject="src/main/resources/" />
+    <javaClientGenerator targetPackage="jp.cloudear.test.db2" targetProject="src/main/java/" type="XMLMAPPER" />
+    <table schema="SYSTEM" tableName="TEST6" />
+<!--     <table schema="TEST" tableName="TEST6" /> -->
+  </context>
+<!-- mvn mybatis-generator:generate -->
 </generatorConfiguration>
