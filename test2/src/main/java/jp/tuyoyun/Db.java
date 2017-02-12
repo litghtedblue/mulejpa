@@ -47,6 +47,11 @@ public class Db implements Callable {
 		Test3 key = mapperBase.selectByPrimaryKey(704L);
 		System.out.println(key.getTitle());
 
+		Test3 test3 = new Test3();
+		test3.setTitle("test10");
+		test3.setRssUrl("http://test10");
+		mapperBase.insert(test3);
+
 		Test6Example example = new Test6Example();
 		example.createCriteria().andRssInfoIdEqualTo(new BigDecimal("594"));
 		List<Test6> list = mapper6.selectByExample(example);
